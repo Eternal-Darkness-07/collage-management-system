@@ -17,46 +17,130 @@ import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Web Portal Management',
     to: '/webPortalManagement',
-    // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
+    // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Buttons',
+        to: '/buttons/buttons',
+      },
+      {
+        component: CNavItem,
+        name: 'Buttons groups',
+        to: '/buttons/button-groups',
+      },
+    ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Student Management',
     to: '/studentManagement',
     // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
+    items: [
+      {
+        component: CNavItem,
+        name: 'Buttons',
+        to: '/buttons/buttons',
+      },
+      {
+        component: CNavItem,
+        name: 'Buttons groups',
+        to: '/buttons/button-groups',
+      },
+    ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Faculty Management',
     to: '/facultyManagement',
     // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
+    items: [
+      {
+        component: CNavItem,
+        name: 'Buttons',
+        to: '/buttons/buttons',
+      },
+      {
+        component: CNavItem,
+        name: 'Buttons groups',
+        to: '/buttons/button-groups',
+      },
+    ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Admission Management',
     to: '/admissionManagement',
     // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
+    items: [
+      {
+        component: CNavItem,
+        name: 'Buttons',
+        to: '/buttons/buttons',
+      },
+      {
+        component: CNavItem,
+        name: 'Buttons groups',
+        to: '/buttons/button-groups',
+      },
+    ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Academic Management',
     to: '/academicManagement',
     // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
+    items: [
+      {
+        component: CNavItem,
+        name: 'Buttons',
+        to: '/buttons/buttons',
+      },
+      {
+        component: CNavItem,
+        name: 'Buttons groups',
+        to: '/buttons/button-groups',
+      },
+    ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Attendance',
     to: '/attendance',
     // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
+    items: [
+      {
+        component: CNavItem,
+        name: 'Buttons',
+        to: '/buttons/buttons',
+      },
+      {
+        component: CNavItem,
+        name: 'Buttons groups',
+        to: '/buttons/button-groups',
+      },
+    ],
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Feedback',
     to: '/feedback',
     // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
+    items: [
+      {
+        component: CNavItem,
+        name: 'Buttons',
+        to: '/buttons/buttons',
+      },
+      {
+        component: CNavItem,
+        name: 'Buttons groups',
+        to: '/buttons/button-groups',
+      },
+    ],
   },
   // {
   //   component: CNavItem,
