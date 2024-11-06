@@ -4,6 +4,14 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Feedback = React.lazy(() => import('./views/feedback/Feedback'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
+const AdminCourses = React.lazy(() => import('../../client/src/admin/AdminCourses'))
+const AdminDepartments = React.lazy(() => import('../../client/src/admin/AdminDepartments'))
+const AdminEnrollments = React.lazy(() => import('../../client/src/admin/AdminEnrollments'))
+const AdminExams = React.lazy(() => import('../../client/src/admin/AdminExams'))
+const AdminHods = React.lazy(() => import('../../client/src/admin/AdminHods'))
+const AdminInstructors = React.lazy(() => import('../../client/src/admin/AdminInstructors'))
+const AdminMarks = React.lazy(() => import('../../client/src/admin/AdminMarks'))
+const AdminStudents = React.lazy(() => import('../../client/src/admin/AdminStudents'))
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
@@ -55,6 +63,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/addStudent', name: 'Add Student', element: AdminStudents },
   { path: '/feedback', name: 'Feedback', element: Feedback },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },

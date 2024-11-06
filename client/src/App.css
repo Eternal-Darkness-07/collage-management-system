@@ -1,0 +1,19 @@
+html, body, #root {
+    height: 100%;
+    margin: 0 auto;
+    background: linear-gradient(0deg, rgba(69,162,252,1) 0%, rgba(177,181,250,1) 50%, rgba(69,162,252,1) 100%);
+}
+.container {
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh; 
+    padding: 20px; 
+    box-sizing: border-box; 
+}
