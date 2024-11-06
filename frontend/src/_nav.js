@@ -70,8 +70,8 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Teacher Data',
-        to: '/facultyManagement/teacherData',
+        name: 'Faculty Data',
+        to: '/facultyManagement/facultyData',
       },
       {
         component: CNavItem,
@@ -89,7 +89,7 @@ const _nav = [
     component: CNavGroup,
     name: 'Admission Management',
     to: '/admissionManagement',
-    // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
+    // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
