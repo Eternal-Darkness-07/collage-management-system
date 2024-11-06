@@ -24,13 +24,23 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Buttons',
-        to: '/buttons/buttons',
+        name: 'News/Notice',
+        to: '/webPortalManagement/Notice',
       },
       {
         component: CNavItem,
-        name: 'Buttons groups',
-        to: '/buttons/button-groups',
+        name: 'Slider',
+        to: '/webPortalManagement/slider',
+      },
+      {
+        component: CNavItem,
+        name: 'Image Gallery',
+        to: '/webPortalManagement/imageGallery',
+      },
+      {
+        component: CNavItem,
+        name: 'Video Gallery',
+        to: '/webPortalManagement/videoGallery',
       },
     ],
   },
@@ -42,13 +52,13 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Buttons',
-        to: '/buttons/buttons',
+        name: 'Student Data',
+        to: '/studentManagement/studentData',
       },
       {
         component: CNavItem,
-        name: 'Buttons groups',
-        to: '/buttons/button-groups',
+        name: 'Enrollments',
+        to: '/studentManagement/enrollments',
       },
     ],
   },
@@ -60,13 +70,18 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Buttons',
-        to: '/buttons/buttons',
+        name: 'Teacher Data',
+        to: '/facultyManagement/teacherData',
       },
       {
         component: CNavItem,
-        name: 'Buttons groups',
-        to: '/buttons/button-groups',
+        name: 'Department',
+        to: '/facultyManagement/department',
+      },
+      {
+        component: CNavItem,
+        name: 'HOD',
+        to: '/facultyManagement/hod',
       },
     ],
   },
@@ -78,13 +93,13 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Buttons',
-        to: '/buttons/buttons',
+        name: 'Course',
+        to: '/admissionManagement/course',
       },
       {
         component: CNavItem,
-        name: 'Buttons groups',
-        to: '/buttons/button-groups',
+        name: 'Registered Student',
+        to: '/admissionManagement/registeredStudent',
       },
     ],
   },
@@ -96,31 +111,18 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Buttons',
-        to: '/buttons/buttons',
+        name: 'Exams',
+        to: '/academicManagement/exams',
       },
       {
         component: CNavItem,
-        name: 'Buttons groups',
-        to: '/buttons/button-groups',
-      },
-    ],
-  },
-  {
-    component: CNavGroup,
-    name: 'Attendance',
-    to: '/attendance',
-    // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
-    items: [
-      {
-        component: CNavItem,
-        name: 'Buttons',
-        to: '/buttons/buttons',
+        name: 'Marks',
+        to: '/academicManagement/marks',
       },
       {
         component: CNavItem,
-        name: 'Buttons groups',
-        to: '/buttons/button-groups',
+        name: 'Performance',
+        to: '/academicManagement/performance',
       },
     ],
   },
@@ -132,13 +134,13 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: 'Buttons',
-        to: '/buttons/buttons',
+        name: 'Feedback Received',
+        to: '/feedback/feedbackReceived',
       },
       {
         component: CNavItem,
-        name: 'Buttons groups',
-        to: '/buttons/button-groups',
+        name: 'Inquiries Received',
+        to: '/feedback/inquiriesReceived',
       },
     ],
   },
@@ -398,33 +400,33 @@ const _nav = [
   //   component: CNavTitle,
   //   name: 'Extras',
   // },
-  // {
-  //   component: CNavGroup,
-  //   name: 'Pages',
-  //   icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-  //   items: [
-  //     {
-  //       component: CNavItem,
-  //       name: 'Login',
-  //       to: '/login',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Register',
-  //       to: '/register',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Error 404',
-  //       to: '/404',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'Error 500',
-  //       to: '/500',
-  //     },
-  //   ],
-  // },
+  {
+    component: CNavGroup,
+    name: 'Pages',
+    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Login',
+        to: '/login',
+      },
+      {
+        component: CNavItem,
+        name: 'Register',
+        to: '/register',
+      },
+      {
+        component: CNavItem,
+        name: 'Error 404',
+        to: '/404',
+      },
+      {
+        component: CNavItem,
+        name: 'Error 500',
+        to: '/500',
+      },
+    ],
+  },
   // {
   //   component: CNavItem,
   //   name: 'Docs',
