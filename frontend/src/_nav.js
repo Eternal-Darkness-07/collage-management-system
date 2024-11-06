@@ -14,7 +14,7 @@ import {
   cilStar,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
-
+// import {AdminCourses} from '../../client/client/src/admin/AdminCourses.jsx'
 const _nav = [
   {
     component: CNavItem,
@@ -26,6 +26,13 @@ const _nav = [
       text: 'NEW',
     },
   },
+  {
+    component: CNavItem,
+    name: 'Admin Courses',
+    to: '/admin/courses', // Make sure this matches the route for AdminCourses
+    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />, // Choose an icon you prefer
+  },
+  
   {
     component: CNavTitle,
     name: 'Theme',
