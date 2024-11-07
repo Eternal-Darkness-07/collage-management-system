@@ -4,15 +4,9 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Feedback = React.lazy(() => import('./views/feedback/Feedback'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
-const AdminCourses = React.lazy(() => import('./admin/AdminCourses'))
-const AdminDepartments = React.lazy(() => import('./admin/AdminDepartments'))
-const AdminEnrollments = React.lazy(() => import('./admin/AdminEnrollments'))
-const AdminExams = React.lazy(() => import('./admin/AdminExams'))
-const AdminHods = React.lazy(() => import('./admin/AdminHods'))
-const AdminInstructors = React.lazy(() => import('./admin/AdminInstructors'))
-const AdminMarks = React.lazy(() => import('./admin/AdminMarks'))
-const AdminStudents = React.lazy(() => import('./admin/AdminStudents'))
-const Notice = React.lazy(()=>import('./admin/Notice'));
+const StudentEnrollments = React.lazy(() => import('./student/StudentEnrollments'))
+const StudentExams = React.lazy(() => import('./student/StudentExams'))
+const StudentMarks = React.lazy(() => import('./student/StudentMarks'))
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -63,15 +57,9 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/studentManagement/enrollments', name: 'Feedback', element: AdminEnrollments },
-  { path: '/studentManagement/studentData', name: 'Manage Student', element: AdminStudents },
-  { path: '/academicManagement/exams', name: 'Manage Exams', element: AdminExams },
-  { path: '/academicManagement/marks', name: 'Manage Marks', element: AdminMarks },
-  { path: '/facultyManagement/department', name: 'Manage Department', element: AdminDepartments },
-  { path: '/facultyManagement/hod', name: 'Manage HOD', element: AdminHods },
-  { path: '/facultyManagement/facultyData', name: 'Manage Faculty', element: AdminInstructors },
-  { path: '/admissionManagement/course', name: 'Manage Courses', element: AdminCourses },
-  { path: '/webPortalManagement/Notice', name: 'Manage Notice', element: Notice },
+  { path: '/enrolledStudents', name: 'Feedback', element: StudentEnrollments },
+  { path: '/exam', name: 'Manage Exams', element: StudentExams },
+  { path: '/marks', name: 'Manage Marks', element: StudentMarks },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/feedback', name: 'Feedback', element: Feedback },
   { path: '/theme/colors', name: 'Colors', element: Colors },
