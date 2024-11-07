@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './adminDesign.css';
+import { CButton, CForm, CFormInput, CFormSelect, CCard, CCardBody, CCardHeader, CTable, CTableBody, CTableHead, CTableRow, CTableDataCell, CTableHeaderCell } from '@coreui/react'; // Ensure proper imports
+// import './adminDesign.css';
 
 const AdminStudents = () => {
     const [students, setStudents] = useState([]);
@@ -110,138 +111,150 @@ const AdminStudents = () => {
     };
 
     return (
-        <div className='admin-container'>
+        <div className="admin-container">
             <h1>Students</h1>
-            <form className='admin-form' onSubmit={onSubmitStudent}>
-                <input
-                    type='text'
-                    name='student_id'
-                    value={newStudent.student_id}
-                    onChange={handleChange}
-                    placeholder='Student ID'
-                    required={!editing}  
-                    style={{width:'150px'}}
-                />
-                <input
-                    type='text'
-                    name='first_name'
-                    value={newStudent.first_name}
-                    onChange={handleChange}
-                    placeholder='First Name'
-                    required
-                    style={{width:'150px'}}
-                />
-                <input
-                    type='text'
-                    name='last_name'
-                    value={newStudent.last_name}
-                    onChange={handleChange}
-                    placeholder='Last Name'
-                    required
-                    style={{width:'150px'}}
-                />
-                <input
-                    type='date'
-                    name='dob'
-                    value={newStudent.dob}
-                    onChange={handleChange}
-                    placeholder='Date of Birth'
-                />
-                <input
-                    type='email'
-                    name='email'
-                    value={newStudent.email}
-                    onChange={handleChange}
-                    placeholder='Email'
-                    required
-                    style={{width:'150px'}}
-                />
-                <input
-                    type='tel'
-                    name='phone'
-                    value={newStudent.phone}
-                    onChange={handleChange}
-                    placeholder='Phone'
-                    style={{width:'150px'}}
-                />
-                <input
-                    type='text'
-                    name='address'
-                    value={newStudent.address}
-                    onChange={handleChange}
-                    placeholder='Address'
-                />
-                <select
-                    name='gender'
-                    value={newStudent.gender}
-                    onChange={handleChange}
-                >
-                    <option value=''>Select Gender</option>
-                    <option value='Male'>Male</option>
-                    <option value='Female'>Female</option>
-                    <option value='Other'>Other</option>
-                </select>
-                <input
-                    type='number'
-                    name='enrollment_year'
-                    value={newStudent.enrollment_year}
-                    onChange={handleChange}
-                    placeholder='Enrollment Year'
-                    required
-                    style={{width:'100px'}}
-                />
-                <select
-                    name='department_id'
-                    value={newStudent.department_id}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value=''>Select Department</option>
-                    {departments.map(dept => (
-                        <option key={dept.department_id} value={dept.department_id}>
-                            {dept.department_name}
-                        </option>
-                    ))}
-                </select>
-                <button type='submit'>{editing ? 'Update' : 'Add'} Student</button>
-            </form>
-            <table className='admin-table'>
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>DOB</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Address</th>
-                        <th>Gender</th>
-                        <th>Enrollment Year</th>
-                        <th>Department</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <CCard>
+                <CCardHeader>{editing ? 'Edit Student' : 'Add New Student'}</CCardHeader>
+                <CCardBody>
+                    <CForm onSubmit={onSubmitStudent}>
+                        <CFormInput
+                            type="text"
+                            name="student_id"
+                            value={newStudent.student_id}
+                            onChange={handleChange}
+                            placeholder="Student ID"
+                            required={!editing}  
+                            style={{ width: '150px' }}
+                        />
+                        <CFormInput
+                            type="text"
+                            name="first_name"
+                            value={newStudent.first_name}
+                            onChange={handleChange}
+                            placeholder="First Name"
+                            required
+                            style={{ width: '150px' }}
+                        />
+                        <CFormInput
+                            type="text"
+                            name="last_name"
+                            value={newStudent.last_name}
+                            onChange={handleChange}
+                            placeholder="Last Name"
+                            required
+                            style={{ width: '150px' }}
+                        />
+                        <CFormInput
+                            type="date"
+                            name="dob"
+                            value={newStudent.dob}
+                            onChange={handleChange}
+                            placeholder="Date of Birth"
+                        />
+                        <CFormInput
+                            type="email"
+                            name="email"
+                            value={newStudent.email}
+                            onChange={handleChange}
+                            placeholder="Email"
+                            required
+                            style={{ width: '150px' }}
+                        />
+                        <CFormInput
+                            type="tel"
+                            name="phone"
+                            value={newStudent.phone}
+                            onChange={handleChange}
+                            placeholder="Phone"
+                            style={{ width: '150px' }}
+                        />
+                        <CFormInput
+                            type="text"
+                            name="address"
+                            value={newStudent.address}
+                            onChange={handleChange}
+                            placeholder="Address"
+                        />
+                        <CFormSelect
+                            name="gender"
+                            value={newStudent.gender}
+                            onChange={handleChange}
+                        >
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </CFormSelect>
+                        <CFormInput
+                            type="number"
+                            name="enrollment_year"
+                            value={newStudent.enrollment_year}
+                            onChange={handleChange}
+                            placeholder="Enrollment Year"
+                            required
+                            style={{ width: '100px' }}
+                        />
+                        <CFormSelect
+                            name="department_id"
+                            value={newStudent.department_id}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select Department</option>
+                            {departments.map(dept => (
+                                <option key={dept.department_id} value={dept.department_id}>
+                                    {dept.department_name}
+                                </option>
+                            ))}
+                        </CFormSelect>
+                        <CButton type="submit" color="primary">
+                            {editing ? 'Update' : 'Add'} Student
+                        </CButton>
+                    </CForm>
+                </CCardBody>
+            </CCard>
+
+            <CTable hover responsive>
+                <CTableHead>
+                    <CTableRow>
+                        <CTableHeaderCell>Student ID</CTableHeaderCell>
+                        <CTableHeaderCell>First Name</CTableHeaderCell>
+                        <CTableHeaderCell>Last Name</CTableHeaderCell>
+                        <CTableHeaderCell>DOB</CTableHeaderCell>
+                        <CTableHeaderCell>Email</CTableHeaderCell>
+                        <CTableHeaderCell>Phone</CTableHeaderCell>
+                        <CTableHeaderCell>Address</CTableHeaderCell>
+                        <CTableHeaderCell>Gender</CTableHeaderCell>
+                        <CTableHeaderCell>Enrollment Year</CTableHeaderCell>
+                        <CTableHeaderCell>Department</CTableHeaderCell>
+                        <CTableHeaderCell>Actions</CTableHeaderCell>
+                    </CTableRow>
+                </CTableHead>
+                <CTableBody>
                     {students.map((student) => (
-                        <tr key={student.student_id}>
-                            <td>{student.student_id}</td>
-                            <td>{student.first_name}</td>
-                            <td>{student.last_name}</td>
-                            <td>{student.dob.split('T')[0]}</td>
-                            <td>{student.email}</td>
-                            <td>{student.phone}</td>
-                            <td>{student.address}</td>
-                            <td>{student.gender}</td>
-                            <td>{student.enrollment_year}</td>
-                            <td>{departments.find(dept => dept.department_id === student.department_id)?.department_name}</td>
-                            <td>
-                                <button className='edit-btn' onClick={() => handleEdit(student)}>Edit</button>
-                                <button className='delete-btn' onClick={() => handleDelete(student.student_id)}>Delete</button>
-                            </td>
-                        </tr>
+                        <CTableRow key={student.student_id}>
+                            <CTableDataCell>{student.student_id}</CTableDataCell>
+                            <CTableDataCell>{student.first_name}</CTableDataCell>
+                            <CTableDataCell>{student.last_name}</CTableDataCell>
+                            <CTableDataCell>{student.dob.split('T')[0]}</CTableDataCell>
+                            <CTableDataCell>{student.email}</CTableDataCell>
+                            <CTableDataCell>{student.phone}</CTableDataCell>
+                            <CTableDataCell>{student.address}</CTableDataCell>
+                            <CTableDataCell>{student.gender}</CTableDataCell>
+                            <CTableDataCell>{student.enrollment_year}</CTableDataCell>
+                            <CTableDataCell>{departments.find(dept => dept.department_id === student.department_id)?.department_name}</CTableDataCell>
+                            <CTableDataCell>
+                                    <CButton color="info" onClick={() => handleEdit(student)} className="edit-btn">
+                                    Edit
+                                    </CButton>
+                                    <CButton color="danger" onClick={() => handleDelete(student.student_id)} className="delete-btn">
+                                    Delete
+                                    </CButton>
+                            </CTableDataCell>
+                        </CTableRow>
                     ))}
-                </tbody>
-            </table>
+                </CTableBody>
+            </CTable>
         </div>
     );
 };
