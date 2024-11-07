@@ -43,23 +43,6 @@ const AdminStudents = () => {
         fetchStudents();
     }, []);
 
-    const resetNewStudentForm = () => {
-        setNewStudent({
-            student_id: '', 
-            first_name: '',
-            last_name: '',
-            dob: '',
-            email: '',
-            phone: '',
-            address: '',
-            gender: '',
-            enrollment_year: '',
-            department_id: '',
-        });
-        setEditing(false);
-        setEditingId(null);
-    };
-
     const onSubmitStudent = async (e) => {
         e.preventDefault();
 
@@ -116,7 +99,7 @@ const AdminStudents = () => {
                 <CCardHeader>{editing ? 'Edit Student' : 'Add New Student'}</CCardHeader>
                 <CCardBody>
                     <CForm onSubmit={onSubmitStudent}>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
                             <CFormInput
                                 type="text"
                                 name="student_id"
@@ -202,7 +185,6 @@ const AdminStudents = () => {
                                 ))}
                             </CFormSelect>
                         </div>
-                        <br/>
                         <CButton type="submit" color="primary">
                             {editing ? 'Update' : 'Add'} Student
                         </CButton>

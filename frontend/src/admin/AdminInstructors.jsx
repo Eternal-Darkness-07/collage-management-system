@@ -1,42 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './adminDesign.css';
+import {
+    CButton, CForm, CFormInput, CFormSelect, CCard, CCardBody, CCardHeader, 
+    CTable, CTableBody, CTableHead, CTableRow, CTableDataCell, CTableHeaderCell
+} from '@coreui/react';
 
 const AdminInstructors = () => {
     const [instructors, setInstructors] = useState([]);
     const [departments, setDepartments] = useState([]);
-    const [instructorId, setInstructorId] = useState(''); 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [hireDate, setHireDate] = useState('');
-    const [departmentId, setDepartmentId] = useState('');
+    const [instructorData, setInstructorData] = useState({
+        instructor_id: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        hire_date: '',
+        department_id: ''
+    });
     const [editing, setEditing] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const baseURL = "http://localhost:5000";
-
-    const resetInstructorForm = () => {
-        setInstructorId(''); 
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setPhone('');
-        setHireDate('');
-        setDepartmentId('');
-        setEditing(false);
-        setEditingId(null);
-    };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const [instructorsResponse, departmentsResponse] = await Promise.all([
                     axios.get(`${baseURL}/api/instructors/admin`),
-                    axios.get(`${baseURL}/api/departments`) 
+                    axios.get(`${baseURL}/api/departments`)
                 ]);
                 setInstructors(instructorsResponse.data);
-                setDepartments(departmentsResponse.data); 
+                setDepartments(departmentsResponse.data);
             } catch (err) {
                 console.error('Error fetching data:', err);
             }
@@ -47,17 +40,7 @@ const AdminInstructors = () => {
 
     const onSubmitInstructor = async (e) => {
         e.preventDefault();
-        if (!instructorId || !firstName || !lastName || !email || !departmentId) return; 
-
-        const instructorData = {
-            instructor_id: instructorId, 
-            first_name: firstName,
-            last_name: lastName,
-            email,
-            phone,
-            hire_date: hireDate,
-            department_id: departmentId
-        };
+        if (!instructorData.instructor_id || !instructorData.first_name || !instructorData.last_name || !instructorData.email || !instructorData.department_id) return;
 
         try {
             if (editing) {
@@ -74,13 +57,15 @@ const AdminInstructors = () => {
     };
 
     const handleEdit = (instructor) => {
-        setInstructorId(instructor.instructor_id); 
-        setFirstName(instructor.first_name);
-        setLastName(instructor.last_name);
-        setEmail(instructor.email);
-        setPhone(instructor.phone);
-        setHireDate(instructor.hire_date);
-        setDepartmentId(instructor.department_id);
+        setInstructorData({
+            instructor_id: instructor.instructor_id,
+            first_name: instructor.first_name,
+            last_name: instructor.last_name,
+            email: instructor.email,
+            phone: instructor.phone,
+            hire_date: instructor.hire_date,
+            department_id: instructor.department_id
+        });
         setEditing(true);
         setEditingId(instructor.instructor_id);
     };
@@ -95,99 +80,125 @@ const AdminInstructors = () => {
         }
     };
 
-    return (
-        <div className='admin-container'>
-            <h1>Instructors</h1>
-            <form className='admin-form' onSubmit={onSubmitInstructor}>
-                <input
-                    type="text"
-                    value={instructorId}
-                    onChange={(e) => setInstructorId(e.target.value)} 
-                    placeholder="Instructor ID"
-                    required
-                />
-                <input
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="First Name"
-                    required
-                />
-                <input
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    placeholder="Last Name"
-                    required
-                />
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"
-                    required
-                />
-                <input
-                    type="text"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="Phone"
-                />
-                <input
-                    type="date"
-                    value={hireDate}
-                    onChange={(e) => setHireDate(e.target.value)}
-                />
-                <select
-                    value={departmentId}
-                    onChange={(e) => setDepartmentId(e.target.value)}
-                    required
-                >
-                    <option value='' disabled>Select Department</option>
-                    {departments.map((department) => (
-                        <option key={department.department_id} value={department.department_id}>
-                            {department.department_name}
-                        </option>
-                    ))}
-                </select>
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setInstructorData((prevData) => ({ ...prevData, [name]: value }));
+    };
 
-                <button type='submit'>{editing ? 'Update Instructor' : 'Add Instructor'}</button>
-            </form>
-            <table className='admin-table'>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Hire Date</th>
-                        <th>Department</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
+    return (
+        <div className="admin-container">
+            <h1>Instructors</h1>
+            <CCard>
+                <CCardHeader>{editing ? 'Edit Instructor' : 'Add New Instructor'}</CCardHeader>
+                <CCardBody>
+                    <CForm onSubmit={onSubmitInstructor}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
+                            <CFormInput
+                                type="text"
+                                name="instructor_id"
+                                value={instructorData.instructor_id}
+                                onChange={handleChange}
+                                placeholder="Instructor ID"
+                                required={!editing}
+                            />
+                            <CFormInput
+                                type="text"
+                                name="first_name"
+                                value={instructorData.first_name}
+                                onChange={handleChange}
+                                placeholder="First Name"
+                                required
+                            />
+                            <CFormInput
+                                type="text"
+                                name="last_name"
+                                value={instructorData.last_name}
+                                onChange={handleChange}
+                                placeholder="Last Name"
+                                required
+                            />
+                            <CFormInput
+                                type="email"
+                                name="email"
+                                value={instructorData.email}
+                                onChange={handleChange}
+                                placeholder="Email"
+                                required
+                            />
+                            <CFormInput
+                                type="tel"
+                                name="phone"
+                                value={instructorData.phone}
+                                onChange={handleChange}
+                                placeholder="Phone"
+                            />
+                            <CFormInput
+                                type="date"
+                                name="hire_date"
+                                value={instructorData.hire_date}
+                                onChange={handleChange}
+                            />
+                            <CFormSelect
+                                name="department_id"
+                                value={instructorData.department_id}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="">Select Department</option>
+                                {departments.map((dept) => (
+                                    <option key={dept.department_id} value={dept.department_id}>
+                                        {dept.department_name}
+                                    </option>
+                                ))}
+                            </CFormSelect>
+                        </div>
+                        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                            <CButton type="submit" color="primary" style={{ width: '15%' }}>
+                                {editing ? 'Update' : 'Add'} Instructor
+                            </CButton>
+                        </div>
+                    </CForm>
+                </CCardBody>
+            </CCard>
+
+            <CTable hover responsive>
+                <CTableHead>
+                    <CTableRow>
+                        <CTableHeaderCell>ID</CTableHeaderCell>
+                        <CTableHeaderCell>First Name</CTableHeaderCell>
+                        <CTableHeaderCell>Last Name</CTableHeaderCell>
+                        <CTableHeaderCell>Email</CTableHeaderCell>
+                        <CTableHeaderCell>Phone</CTableHeaderCell>
+                        <CTableHeaderCell>Hire Date</CTableHeaderCell>
+                        <CTableHeaderCell>Department</CTableHeaderCell>
+                        <CTableHeaderCell>Actions</CTableHeaderCell>
+                    </CTableRow>
+                </CTableHead>
+                <CTableBody>
                     {instructors.map((instructor) => {
                         const department = departments.find(d => d.department_id === instructor.department_id)?.department_name;
-
                         return (
-                            <tr key={instructor.instructor_id}>
-                                <td>{instructor.instructor_id}</td> 
-                                <td>{instructor.first_name}</td>
-                                <td>{instructor.last_name}</td>
-                                <td>{instructor.email}</td>
-                                <td>{instructor.phone || 'N/A'}</td>
-                                <td>{instructor.hire_date.split("T")[0] || 'N/A'}</td>
-                                <td>{department}</td>
-                                <td className='admin-btn-group'>
-                                    <button className="edit-btn" onClick={() => handleEdit(instructor)}>Edit</button>
-                                    <button className="delete-btn" onClick={() => handleDelete(instructor.instructor_id)}>Delete</button>
-                                </td>
-                            </tr>
+                            <CTableRow key={instructor.instructor_id}>
+                                <CTableDataCell>{instructor.instructor_id}</CTableDataCell>
+                                <CTableDataCell>{instructor.first_name}</CTableDataCell>
+                                <CTableDataCell>{instructor.last_name}</CTableDataCell>
+                                <CTableDataCell>{instructor.email}</CTableDataCell>
+                                <CTableDataCell>{instructor.phone || 'N/A'}</CTableDataCell>
+                                <CTableDataCell>{instructor.hire_date.split("T")[0] || 'N/A'}</CTableDataCell>
+                                <CTableDataCell>{department}</CTableDataCell>
+                                <CTableDataCell>
+                                    <CButton color="info" onClick={() => handleEdit(instructor)}>
+                                        Edit
+                                    </CButton>
+                                    <CButton color="danger" onClick={() => handleDelete(instructor.instructor_id)}>
+                                        Delete
+                                    </CButton>
+                                </CTableDataCell>
+                            </CTableRow>
                         );
                     })}
-                </tbody>
-            </table>
+                </CTableBody>
+            </CTable>
         </div>
     );
 };
