@@ -12,7 +12,8 @@ const AdminHods = React.lazy(() => import('./admin/AdminHods'))
 const AdminInstructors = React.lazy(() => import('./admin/AdminInstructors'))
 const AdminMarks = React.lazy(() => import('./admin/AdminMarks'))
 const AdminStudents = React.lazy(() => import('./admin/AdminStudents'))
-const Notice = React.lazy(()=>import('./admin/AdminImageSlider'));
+const Notice = React.lazy(()=>import('./admin/Notice'));
+const ImageSlider = React.lazy(()=>import('./admin/AdminImageSlider'));
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -72,6 +73,7 @@ const routes = [
   { path: '/facultyManagement/facultyData', name: 'Manage Faculty', element: AdminInstructors },
   { path: '/admissionManagement/course', name: 'Manage Courses', element: AdminCourses },
   { path: '/webPortalManagement/Notice', name: 'Manage Notice', element: Notice },
+  { path: '/webPortalManagement/slider', name: 'Manage Image Slide', element: ImageSlider },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/feedback', name: 'Feedback', element: Feedback },
   { path: '/theme/colors', name: 'Colors', element: Colors },
