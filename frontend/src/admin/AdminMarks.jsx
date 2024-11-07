@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './adminDesign.css'; 
+import { CButton, CForm, CFormInput, CCard, CCardBody, CCardHeader, CTable, CTableBody, CTableHead, CTableRow, CTableDataCell, CTableHeaderCell } from '@coreui/react';
 
 const AdminMarks = () => {
     const [marks, setMarks] = useState([]);
@@ -74,59 +74,74 @@ const AdminMarks = () => {
     return (
         <div className='admin-container'>
             <h1>Exam Marks</h1>
-            <form className='admin-form' onSubmit={onSubmitMark}>
-                <input
-                    type='text'
-                    name='studentId'
-                    value={studentId}
-                    onChange={(e) => setStudentId(e.target.value)}
-                    placeholder='Student ID'
-                    required
-                />
-                <input
-                    type='text'
-                    name='examId'
-                    value={examId}
-                    onChange={(e) => setExamId(e.target.value)}
-                    placeholder='Exam ID'
-                    required
-                />
-                <input
-                    type='number'
-                    name='obtainedMarks'
-                    value={obtainedMarks}
-                    onChange={(e) => setObtainedMarks(e.target.value)}
-                    placeholder='Obtained Marks'
-                    required
-                />
-                <button type='submit'>{editing ? 'Update' : 'Add'} Mark</button>
-            </form>
-            
-            <table className="admin-table">
-                <thead>
-                    <tr>
-                        <th>Mark ID</th>
-                        <th>Student ID</th>
-                        <th>Exam ID</th>
-                        <th>Obtained Marks</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <CCard>
+                <CCardHeader>{editing ? 'Edit Mark' : 'Add New Mark'}</CCardHeader>
+                <CCardBody>
+                    <CForm onSubmit={onSubmitMark}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
+                            <CFormInput
+                                type='text'
+                                name='studentId'
+                                value={studentId}
+                                onChange={(e) => setStudentId(e.target.value)}
+                                placeholder='Student ID'
+                                required
+                            />
+                            <CFormInput
+                                type='text'
+                                name='examId'
+                                value={examId}
+                                onChange={(e) => setExamId(e.target.value)}
+                                placeholder='Exam ID'
+                                required
+                            />
+                            <CFormInput
+                                type='number'
+                                name='obtainedMarks'
+                                value={obtainedMarks}
+                                onChange={(e) => setObtainedMarks(e.target.value)}
+                                placeholder='Obtained Marks'
+                                required
+                            />
+                        </div>
+                        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                            <CButton type="submit" color="primary" style={{ width: '15%' }}>
+                                {editing ? 'Update' : 'Add'} Mark
+                            </CButton>
+                        </div>
+                    </CForm>
+                </CCardBody>
+            </CCard>
+
+            <CTable hover responsive>
+                <CTableHead>
+                    <CTableRow>
+                        <CTableHeaderCell>Mark ID</CTableHeaderCell>
+                        <CTableHeaderCell>Student ID</CTableHeaderCell>
+                        <CTableHeaderCell>Exam ID</CTableHeaderCell>
+                        <CTableHeaderCell>Obtained Marks</CTableHeaderCell>
+                        <CTableHeaderCell>Actions</CTableHeaderCell>
+                    </CTableRow>
+                </CTableHead>
+                <CTableBody>
                     {marks.map(mark => (
-                        <tr key={mark.mark_id}>
-                            <td>{mark.mark_id}</td>
-                            <td>{mark.student_id}</td>
-                            <td>{mark.exam_id}</td>
-                            <td>{mark.obtained_marks}</td>
-                            <td>
-                                <button onClick={() => handleEdit(mark)} className="edit-btn">Edit</button>
-                                <button onClick={() => handleDelete(mark.mark_id)} className="delete-btn">Delete</button>
-                            </td>
-                        </tr>
+                        <CTableRow key={mark.mark_id}>
+                            <CTableDataCell>{mark.mark_id}</CTableDataCell>
+                            <CTableDataCell>{mark.student_id}</CTableDataCell>
+                            <CTableDataCell>{mark.exam_id}</CTableDataCell>
+                            <CTableDataCell>{mark.obtained_marks}</CTableDataCell>
+                            <CTableDataCell>
+                                <CButton color="info" onClick={() => handleEdit(mark)} className="edit-btn">
+                                    Edit
+                                </CButton>
+                                <CButton color="danger" onClick={() => handleDelete(mark.mark_id)} className="delete-btn">
+                                    Delete
+                                </CButton>
+                            </CTableDataCell>
+                        </CTableRow>
                     ))}
-                </tbody>
-            </table>
+                </CTableBody>
+            </CTable>
         </div>
     );
 };

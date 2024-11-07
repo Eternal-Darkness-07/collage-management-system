@@ -18,7 +18,6 @@ import {
     CCardHeader,
 } from '@coreui/react';
 import '@coreui/coreui/dist/css/coreui.min.css';
-// import './noticeDesign.css';
 
 const Notice = () => {
     const [notices, setNotices] = useState([]);
@@ -85,32 +84,36 @@ const Notice = () => {
                 <CCardHeader>{editing ? 'Edit Notice' : 'Add New Notice'}</CCardHeader>
                 <CCardBody>
                     <CForm onSubmit={handleSubmit}>
-                        <CFormInput
-                            type='text'
-                            name='heading'
-                            value={newNotice.heading}
-                            onChange={handleInputChange}
-                            placeholder='Notice Heading'
-                            required
-                        />
-                        <CFormTextarea
-                            name='content'
-                            value={newNotice.content}
-                            onChange={handleInputChange}
-                            placeholder='Notice Content'
-                            required
-                            rows="3"
-                        />
-                        <CFormInput
-                            type='text'
-                            name='image_url'
-                            value={newNotice.image_url}
-                            onChange={handleInputChange}
-                            placeholder='Image URL (optional)'
-                        />
-                        <CButton type='submit' color={editing ? 'primary' : 'success'}>
-                            {editing ? 'Update' : 'Add'} Notice
-                        </CButton>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
+                            <CFormInput
+                                type='text'
+                                name='heading'
+                                value={newNotice.heading}
+                                onChange={handleInputChange}
+                                placeholder='Notice Heading'
+                                required
+                            />
+                            <CFormTextarea
+                                name='content'
+                                value={newNotice.content}
+                                onChange={handleInputChange}
+                                placeholder='Notice Content'
+                                required
+                                rows="3"
+                            />
+                            <CFormInput
+                                type='text'
+                                name='image_url'
+                                value={newNotice.image_url}
+                                onChange={handleInputChange}
+                                placeholder='Image URL (optional)'
+                            />
+                        </div>
+                        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                            <CButton type='submit' color={editing ? 'primary' : 'success'} style={{ width: '15%' }}>
+                                {editing ? 'Update' : 'Add'} Notice
+                            </CButton>
+                        </div>
                     </CForm>
                 </CCardBody>
             </CCard>

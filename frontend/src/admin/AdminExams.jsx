@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './adminDesign.css'; 
+import { CButton, CForm, CFormInput, CCard, CCardBody, CCardHeader, CTable, CTableBody, CTableHead, CTableRow, CTableDataCell, CTableHeaderCell } from '@coreui/react';
 
 const AdminExams = () => {
     const [exams, setExams] = useState([]);
@@ -72,71 +72,86 @@ const AdminExams = () => {
             console.error('Error deleting exam:', err);
         }
     };
-    console.log(exams)
+
     return (
         <div className='admin-container'>
             <h1>Exams</h1>
-            <form className='admin-form' onSubmit={onSubmitExam}>
-                <input
-                    type='text'
-                    name='examId'
-                    value={examId}
-                    onChange={(e) => setExamId(e.target.value)}
-                    placeholder='Exam ID'
-                    required
-                />
-                <input
-                    type='text'
-                    name='examName'
-                    value={examName}
-                    onChange={(e) => setExamName(e.target.value)}
-                    placeholder='Exam Name'
-                    required
-                />
-                <input
-                    type='date'
-                    name='examDate'
-                    value={examDate}
-                    onChange={(e) => setExamDate(e.target.value)}
-                    placeholder='Exam Date'
-                    required
-                />
-                <input
-                    type='text'
-                    name='duration'
-                    value={duration}
-                    onChange={(e) => setDuration(e.target.value)}
-                    placeholder='Duration (in hours)'
-                    required
-                />
-                <button type='submit'>{editing ? 'Update' : 'Add'} Exam</button>
-            </form>
-            
-            <table className="admin-table">
-                <thead>
-                    <tr>
-                        <th>Exam ID</th>
-                        <th>Exam Name</th>
-                        <th>Exam Date</th>
-                        <th>Duration (hrs)</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <CCard>
+                <CCardHeader>{editing ? 'Edit Exam' : 'Add New Exam'}</CCardHeader>
+                <CCardBody>
+                    <CForm onSubmit={onSubmitExam}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
+                            <CFormInput
+                                type='text'
+                                name='examId'
+                                value={examId}
+                                onChange={(e) => setExamId(e.target.value)}
+                                placeholder='Exam ID'
+                                required
+                            />
+                            <CFormInput
+                                type='text'
+                                name='examName'
+                                value={examName}
+                                onChange={(e) => setExamName(e.target.value)}
+                                placeholder='Exam Name'
+                                required
+                            />
+                            <CFormInput
+                                type='date'
+                                name='examDate'
+                                value={examDate}
+                                onChange={(e) => setExamDate(e.target.value)}
+                                placeholder='Exam Date'
+                                required
+                            />
+                            <CFormInput
+                                type='text'
+                                name='duration'
+                                value={duration}
+                                onChange={(e) => setDuration(e.target.value)}
+                                placeholder='Duration (in hours)'
+                                required
+                            />
+                        </div>
+                        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                            <CButton type="submit" color="primary" style={{ width: '15%' }}>
+                                {editing ? 'Update' : 'Add'} Exam
+                            </CButton>
+                        </div>
+                    </CForm>
+                </CCardBody>
+            </CCard>
+
+            <CTable hover responsive>
+                <CTableHead>
+                    <CTableRow>
+                        <CTableHeaderCell>Exam ID</CTableHeaderCell>
+                        <CTableHeaderCell>Exam Name</CTableHeaderCell>
+                        <CTableHeaderCell>Exam Date</CTableHeaderCell>
+                        <CTableHeaderCell>Duration (hrs)</CTableHeaderCell>
+                        <CTableHeaderCell>Actions</CTableHeaderCell>
+                    </CTableRow>
+                </CTableHead>
+                <CTableBody>
                     {exams.map(exam => (
-                        <tr key={exam.exam_id}>
-                            <td>{exam.exam_id}</td>
-                            <td>{exam.exam_name}</td>
-                            <td>{exam.exam_date}</td>
-                            <td>{exam.duration}</td>
-                            <td>
-                                <button onClick={() => handleEdit(exam)} className="edit-btn">Edit</button>
-                                <button onClick={() => handleDelete(exam.exam_id)} className="delete-btn">Delete</button>
-                            </td>
-                        </tr>
+                        <CTableRow key={exam.exam_id}>
+                            <CTableDataCell>{exam.exam_id}</CTableDataCell>
+                            <CTableDataCell>{exam.exam_name}</CTableDataCell>
+                            <CTableDataCell>{exam.exam_date}</CTableDataCell>
+                            <CTableDataCell>{exam.duration}</CTableDataCell>
+                            <CTableDataCell>
+                                <CButton color="info" onClick={() => handleEdit(exam)} className="edit-btn">
+                                    Edit
+                                </CButton>
+                                <CButton color="danger" onClick={() => handleDelete(exam.exam_id)} className="delete-btn">
+                                    Delete
+                                </CButton>
+                            </CTableDataCell>
+                        </CTableRow>
                     ))}
-                </tbody>
-            </table>
+                </CTableBody>
+            </CTable>
         </div>
     );
 };

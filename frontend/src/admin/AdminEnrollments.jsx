@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './adminDesign.css';
+import { 
+  CButton, CForm, CFormSelect, CCard, CCardBody, CCardHeader, 
+  CTable, CTableBody, CTableHead, CTableRow, CTableDataCell, CTableHeaderCell 
+} from '@coreui/react';
 
 const AdminEnrollments = () => {
     const [enrollments, setEnrollments] = useState([]);
@@ -78,63 +81,78 @@ const AdminEnrollments = () => {
     };
 
     return (
-        <div className='admin-container'>
+        <div className="admin-container">
             <h1>Enrollments</h1>
-            <form className='admin-form' onSubmit={onSubmitEnrollment}>
-                <select
-                    value={selectedStudent}
-                    onChange={(e) => setSelectedStudent(e.target.value)}
-                    required
-                >
-                    <option value='' disabled>Select Student</option>
-                    {students.map((student) => (
-                        <option key={student.student_id} value={student.student_id}>
-                            {student.first_name} {student.last_name}
-                        </option>
-                    ))}
-                </select>
+            <CCard>
+                <CCardHeader>{editing ? 'Edit Enrollment' : 'Add New Enrollment'}</CCardHeader>
+                <CCardBody>
+                    <CForm onSubmit={onSubmitEnrollment}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
+                            <CFormSelect
+                                value={selectedStudent}
+                                onChange={(e) => setSelectedStudent(e.target.value)}
+                                required
+                            >
+                                <option value='' disabled>Select Student</option>
+                                {students.map((student) => (
+                                    <option key={student.student_id} value={student.student_id}>
+                                        {student.first_name} {student.last_name}
+                                    </option>
+                                ))}
+                            </CFormSelect>
 
-                <select
-                    value={selectedCourse}
-                    onChange={(e) => setSelectedCourse(e.target.value)}
-                    required
-                >
-                    <option value='' disabled>Select Course</option>
-                    {courses.map((course) => (
-                        <option key={course.course_id} value={course.course_id}>
-                            {course.course_name}
-                        </option>
-                    ))}
-                </select>
+                            <CFormSelect
+                                value={selectedCourse}
+                                onChange={(e) => setSelectedCourse(e.target.value)}
+                                required
+                            >
+                                <option value='' disabled>Select Course</option>
+                                {courses.map((course) => (
+                                    <option key={course.course_id} value={course.course_id}>
+                                        {course.course_name}
+                                    </option>
+                                ))}
+                            </CFormSelect>
+                        </div>
+                        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                            <CButton type="submit" color="primary" style={{ width: '15%' }}>
+                                {editing ? 'Update Enrollment' : 'Add Enrollment'}
+                            </CButton>
+                        </div>
+                    </CForm>
+                </CCardBody>
+            </CCard>
 
-                <button type='submit'>{editing ? 'Update Enrollment' : 'Add Enrollment'}</button>
-            </form>
-            <table className='admin-table'>
-                <thead>
-                    <tr>
-                        <th>Student Name</th>
-                        <th>Course Name</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <CTable hover responsive>
+                <CTableHead>
+                    <CTableRow>
+                        <CTableHeaderCell>Student Name</CTableHeaderCell>
+                        <CTableHeaderCell>Course Name</CTableHeaderCell>
+                        <CTableHeaderCell>Actions</CTableHeaderCell>
+                    </CTableRow>
+                </CTableHead>
+                <CTableBody>
                     {enrollments.map((enrollment, index) => {
                         const student = students.find(s => s.student_id === enrollment.student_id);
                         const course = courses.find(c => c.course_id === enrollment.course_id)?.course_name;
 
                         return (
-                            <tr key={index}>
-                                <td>{student ? `${student.first_name} ${student.last_name}` : 'N/A'}</td>
-                                <td>{course || 'N/A'}</td>
-                                <td className='admin-btn-group'>
-                                    <button className="edit-btn" onClick={() => handleEdit(enrollment)}>Edit</button>
-                                    <button className="delete-btn" onClick={() => handleDelete(enrollment.enrollment_id)}>Delete</button>
-                                </td>
-                            </tr>
+                            <CTableRow key={index}>
+                                <CTableDataCell>{student ? `${student.first_name} ${student.last_name}` : 'N/A'}</CTableDataCell>
+                                <CTableDataCell>{course || 'N/A'}</CTableDataCell>
+                                <CTableDataCell>
+                                    <CButton color="info" onClick={() => handleEdit(enrollment)} className="edit-btn">
+                                        Edit
+                                    </CButton>
+                                    <CButton color="danger" onClick={() => handleDelete(enrollment.enrollment_id)} className="delete-btn">
+                                        Delete
+                                    </CButton>
+                                </CTableDataCell>
+                            </CTableRow>
                         );
                     })}
-                </tbody>
-            </table>
+                </CTableBody>
+            </CTable>
         </div>
     );
 };

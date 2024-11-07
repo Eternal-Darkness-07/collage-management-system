@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { 
+    CButton, CForm, CFormInput, CFormSelect, CContainer, 
+    CCard, CCardHeader, CCardBody, CTable, CTableHead, 
+    CTableRow, CTableHeaderCell, CTableBody, CTableDataCell 
+} from '@coreui/react';
 import './adminDesign.css';
 
 const AdminHOD = () => {
@@ -99,85 +104,114 @@ const AdminHOD = () => {
     };
 
     return (
-        <div className='admin-container'>
-            <h1>Head Of Department</h1>
-            <form className='admin-form' onSubmit={onSubmitHOD}>
-                <select
-                    value={selectedHOD}
-                    onChange={(e) => setSelectedHOD(e.target.value)}
-                    required
-                >
-                    <option value='' disabled>Select HOD</option>
-                    {instructors.map(instructor => (
-                        <option key={instructor.instructor_id} value={`${instructor.first_name} ${instructor.last_name}`}>
-                            {instructor.first_name} {instructor.last_name}
-                        </option>
-                    ))}
-                </select>
-                <select
-                    value={selectedDepartment}
-                    onChange={(e) => setSelectedDepartment(e.target.value)}
-                    required
-                >
-                    <option value='' disabled>Select Department</option>
-                    {departments.map(department => (
-                        <option key={department.department_id} value={department.department_id}>
-                            {department.department_name}
-                        </option>
-                    ))}
-                </select>
-                <input
-                    type="email"
-                    value={hodEmail}
-                    onChange={(e) => setHodEmail(e.target.value)}
-                    placeholder="HOD Email"
-                    required
-                />
-                <input
-                    type="text"
-                    value={hodPhone}
-                    onChange={(e) => setHodPhone(e.target.value)}
-                    placeholder="Phone Number"
-                    required
-                />
-                <input
-                    type="date"
-                    value={hodHireDate}
-                    onChange={(e) => setHodHireDate(e.target.value)}
-                    placeholder="Hire Date"
-                    required
-                />
-                <button type='submit'>{editing ? 'Update' : 'Add'} HOD</button>
-            </form>
+        <CContainer>
+            <CCard className="mb-3">
+                <CCardHeader>
+                    <h5>Head of Department</h5>
+                </CCardHeader>
+                <CCardBody>
+                    <CForm onSubmit={onSubmitHOD} className="row g-3">
+                        <div className="col-md-4">
+                            <CFormSelect
+                                value={selectedHOD}
+                                onChange={(e) => setSelectedHOD(e.target.value)}
+                                required
+                            >
+                                <option value='' disabled>Select HOD</option>
+                                {instructors.map(instructor => (
+                                    <option key={instructor.instructor_id} value={`${instructor.first_name} ${instructor.last_name}`}>
+                                        {instructor.first_name} {instructor.last_name}
+                                    </option>
+                                ))}
+                            </CFormSelect>
+                        </div>
 
-            <table className='admin-table'>
-                <thead>
-                    <tr>
-                        <th>HOD Name</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Hire Date</th>
-                        <th>Department</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {hods.map((hod) => (
-                        <tr key={hod.hod_id}>
-                            <td>{hod.first_name} {hod.last_name}</td>
-                            <td>{hod.email}</td>
-                            <td>{hod.phone}</td>
-                            <td>{hod.hire_date.split('T')[0]}</td>
-                            <td>{departments.find(d => d.department_id === hod.department_id)?.department_name}</td>
-                            <td>
-                                <button className='edit-btn' onClick={() => handleEdit(hod)}>Edit</button>
-                                <button className='delete-btn' onClick={() => handleDelete(hod.hod_id)}>Delete</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                        <div className="col-md-4">
+                            <CFormSelect
+                                value={selectedDepartment}
+                                onChange={(e) => setSelectedDepartment(e.target.value)}
+                                required
+                            >
+                                <option value='' disabled>Select Department</option>
+                                {departments.map(department => (
+                                    <option key={department.department_id} value={department.department_id}>
+                                        {department.department_name}
+                                    </option>
+                                ))}
+                            </CFormSelect>
+                        </div>
+
+                        <div className="col-md-4">
+                            <CFormInput
+                                type="email"
+                                value={hodEmail}
+                                onChange={(e) => setHodEmail(e.target.value)}
+                                placeholder="HOD Email"
+                                required
+                            />
+                        </div>
+
+                        <div className="col-md-4">
+                            <CFormInput
+                                type="text"
+                                value={hodPhone}
+                                onChange={(e) => setHodPhone(e.target.value)}
+                                placeholder="Phone Number"
+                                required
+                            />
+                        </div>
+
+                        <div className="col-md-4">
+                            <CFormInput
+                                type="date"
+                                value={hodHireDate}
+                                onChange={(e) => setHodHireDate(e.target.value)}
+                                placeholder="Hire Date"
+                                required
+                            />
+                        </div>
+
+                        <div className="col-12">
+                            <CButton type="submit" color="primary" className="mt-3">
+                                {editing ? 'Update' : 'Add'} HOD
+                            </CButton>
+                        </div>
+                    </CForm>
+
+                    <CTable hover bordered responsive size="sm" className="mt-4">
+                        <CTableHead>
+                            <CTableRow>
+                                <CTableHeaderCell>HOD Name</CTableHeaderCell>
+                                <CTableHeaderCell>Email</CTableHeaderCell>
+                                <CTableHeaderCell>Phone Number</CTableHeaderCell>
+                                <CTableHeaderCell>Hire Date</CTableHeaderCell>
+                                <CTableHeaderCell>Department</CTableHeaderCell>
+                                <CTableHeaderCell>Actions</CTableHeaderCell>
+                            </CTableRow>
+                        </CTableHead>
+                        <CTableBody>
+                            {hods.map((hod) => (
+                                <CTableRow key={hod.hod_id}>
+                                    <CTableDataCell>{hod.first_name} {hod.last_name}</CTableDataCell>
+                                    <CTableDataCell>{hod.email}</CTableDataCell>
+                                    <CTableDataCell>{hod.phone}</CTableDataCell>
+                                    <CTableDataCell>{hod.hire_date.split('T')[0]}</CTableDataCell>
+                                    <CTableDataCell>{departments.find(d => d.department_id === hod.department_id)?.department_name}</CTableDataCell>
+                                    <CTableDataCell>
+                                        <CButton color="info" onClick={() => handleEdit(hod)} size="sm" className="me-2">
+                                            Edit
+                                        </CButton>
+                                        <CButton color="danger" onClick={() => handleDelete(hod.hod_id)} size="sm">
+                                            Delete
+                                        </CButton>
+                                    </CTableDataCell>
+                                </CTableRow>
+                            ))}
+                        </CTableBody>
+                    </CTable>
+                </CCardBody>
+            </CCard>
+        </CContainer>
     );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './adminDesign.css'; 
+import { CButton, CForm, CFormInput, CTable, CTableHead, CTableRow, CTableHeaderCell, CTableBody, CTableDataCell, CContainer, CCard, CCardHeader, CCardBody } from '@coreui/react';
+import './adminDesign.css';
 
 const AdminDepartments = () => {
     const [departments, setDepartments] = useState([]);
@@ -14,7 +15,9 @@ const AdminDepartments = () => {
         setEditing(false);
         setEditingId(null);
     };
-    departments.sort((a,b)=>a.department_id-b.department_id);
+
+    departments.sort((a, b) => a.department_id - b.department_id);
+
     useEffect(() => {
         const fetchDepartments = async () => {
             try {
@@ -66,42 +69,56 @@ const AdminDepartments = () => {
     };
 
     return (
-        <div className='admin-container'>
-            <h1>Departments</h1>
-            <form className='admin-form' onSubmit={onSubmitDepartment}>
-                <input
-                    type='text'
-                    name='name'
-                    value={newDepartment}
-                    onChange={(e) => setNewDepartment(e.target.value)}
-                    placeholder='Department Name'
-                    required
-                />
-                <button type='submit'>{editing ? 'Update' : 'Add'} Department</button>
-            </form>
-            
-            <table className="admin-table">
-                <thead>
-                    <tr>
-                        <th>Department ID</th>
-                        <th>Department Name</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {departments.map(department => (
-                        <tr key={department.department_id}>
-                            <td>{department.department_id}</td>
-                            <td>{department.department_name}</td>
-                            <td>
-                                <button onClick={() => handleEdit(department)} className="edit-btn">Edit</button>
-                                <button onClick={() => handleDelete(department.department_id)} className="delete-btn">Delete</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+        <CContainer>
+            <CCard className="mb-3">
+                <CCardHeader>
+                    <h5 style={{ fontSize: '18px' }}>Departments</h5>
+                </CCardHeader>
+                <CCardBody>
+                    <CForm onSubmit={onSubmitDepartment} className="d-flex mb-3">
+                        <CFormInput
+                            type="text"
+                            value={newDepartment}
+                            onChange={(e) => setNewDepartment(e.target.value)}
+                            placeholder="Department Name"
+                            required
+                            className="me-2"
+                            size="sm" // Smaller size for the input
+                            style={{ fontSize: '14px', padding: '5px' }} // Reduced font size and padding
+                        />
+                        <CButton type="submit" color={editing ? "warning" : "primary"} size="sm" style={{ fontSize: '14px' }}>
+                            {editing ? 'Update' : 'Add'} Department
+                        </CButton>
+                    </CForm>
+
+                    <CTable hover bordered responsive size="sm">
+                        <CTableHead>
+                            <CTableRow>
+                                <CTableHeaderCell style={{ fontSize: '14px' }}>Department ID</CTableHeaderCell>
+                                <CTableHeaderCell style={{ fontSize: '14px' }}>Department Name</CTableHeaderCell>
+                                <CTableHeaderCell style={{ fontSize: '14px' }}>Actions</CTableHeaderCell>
+                            </CTableRow>
+                        </CTableHead>
+                        <CTableBody>
+                            {departments.map(department => (
+                                <CTableRow key={department.department_id}>
+                                    <CTableDataCell style={{ fontSize: '14px' }}>{department.department_id}</CTableDataCell>
+                                    <CTableDataCell style={{ fontSize: '14px' }}>{department.department_name}</CTableDataCell>
+                                    <CTableDataCell>
+                                        <CButton color="info" onClick={() => handleEdit(department)} className="me-2" size="sm">
+                                            Edit
+                                        </CButton>
+                                        <CButton color="danger" onClick={() => handleDelete(department.department_id)} size="sm">
+                                            Delete
+                                        </CButton>
+                                    </CTableDataCell>
+                                </CTableRow>
+                            ))}
+                        </CTableBody>
+                    </CTable>
+                </CCardBody>
+            </CCard>
+        </CContainer>
     );
 };
 
