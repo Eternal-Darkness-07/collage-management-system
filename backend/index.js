@@ -26,6 +26,8 @@ const performanceRoutes = require('./routes/performance');
 const loginRoutes = require('./routes/login');
 const noticeRouter = require('./routes/notice');  // Adjust path as needed
 const imageslideRouter = require('./routes/imageslide');  // Adjust path as needed
+const imageGalleryRoutes = require('./routes/imagegallery');
+app.use('/api/imagegallery', imageGalleryRoutes);
 app.use('/api/imageslider', imageslideRouter);
 app.use('/api/notices', noticeRouter);
 app.use('/api/departments/', departmentsRoutes);

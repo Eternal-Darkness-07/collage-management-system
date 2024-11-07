@@ -128,7 +128,18 @@ db.connect((err) => {
         content VARCHAR(255) NOT NULL,
         image_path VARCHAR(255) NOT NULL
     );`;
+    const imageGalleryTable = `
+        CREATE TABLE IF NOT EXISTS ImageGallery (
+            image_id INT PRIMARY KEY AUTO_INCREMENT,
+            image_name VARCHAR(255) NOT NULL,
+            image_url VARCHAR(255) NOT NULL
+        );
+    `;
 
+    db.query(imageGalleryTable, (err, result) => {
+        if (err) throw err;
+        console.log("ImageGallery table created or already exists.");
+    });
     db.query(imagesTable, (err, result) => {
         if (err) throw err;
         console.log("Images table created or already exists.");
