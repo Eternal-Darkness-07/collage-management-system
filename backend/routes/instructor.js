@@ -72,7 +72,7 @@ router.get('/admin', async (req, res) => {
 });
 
 router.post('/admin/add', async (req, res) => {
-    const { instructor_id, first_name, last_name, email, phone, hire_date, department_id } = req.body; 
+    const { instructor_id, first_name, last_name, email, phone, hire_date, department_id} = req.body; 
     try {
         const query = `
             INSERT INTO Instructors (instructor_id, first_name, last_name, email, phone, hire_date, department_id) 
