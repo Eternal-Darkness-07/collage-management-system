@@ -72,18 +72,42 @@ router.get('/admin', async (req, res) => {
 });
 
 router.post('/admin/add', async (req, res) => {
-    const { instructor_id, first_name, last_name, email, phone, hire_date, department_id } = req.body; 
+    const { instructor_id, first_name, last_name, email, phone, hire_date, department_id, password } = req.body;
+
+    // Ensure that all required fields are provided
+    if (!instructor_id || !first_name || !last_name || !email || !department_id || !password) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
     try {
+        // SQL query for inserting a new instructor into the database
         const query = `
-            INSERT INTO Instructors (instructor_id, first_name, last_name, email, phone, hire_date, department_id) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)`;
-        const [result] = await db.promise().query(query, [instructor_id, first_name, last_name, email, phone, hire_date, department_id]);
-        res.status(201).json({ id: result.insertId, instructor_id, first_name, last_name, email, phone, hire_date, department_id });
+            INSERT INTO Instructors (instructor_id, first_name, last_name, email, phone, hire_date, department_id, password) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+
+        // Execute the query and pass the data
+        const [result] = await db.promise().query(query, [
+            instructor_id, first_name, last_name, email, phone, hire_date, department_id, password
+        ]);
+
+        // Send the response with the added instructor data (excluding the password)
+        res.status(201).json({
+            id: result.insertId,
+            instructor_id,
+            first_name,
+            last_name,
+            email,
+            phone,
+            hire_date,
+            department_id
+        });
     } catch (error) {
         console.error("Error adding instructor:", error);
         res.status(500).json({ error: 'Server error' });
     }
 });
+
+
 
 router.put('/admin/:id', async (req, res) => {
     const instructorId = req.params.id; 
