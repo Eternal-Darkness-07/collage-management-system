@@ -16,6 +16,7 @@ const AdminStudents = () => {
         gender: '',
         enrollment_year: '',
         department_id: '',
+        password: '',  // Added password field
     });
     const [editing, setEditing] = useState(false);
     const [editingId, setEditingId] = useState(null);
@@ -55,6 +56,7 @@ const AdminStudents = () => {
             gender: '',
             enrollment_year: '',
             department_id: '',
+            password: '',  // Reset password field
         });
         setEditing(false);
         setEditingId(null);
@@ -89,6 +91,7 @@ const AdminStudents = () => {
             gender: student.gender,
             enrollment_year: student.enrollment_year,
             department_id: student.department_id,
+            password: '',  // Password should not be pre-filled when editing
         });
         setEditing(true);
         setEditingId(student.student_id);
@@ -201,6 +204,18 @@ const AdminStudents = () => {
                                     </option>
                                 ))}
                             </CFormSelect>
+
+                            {/* Conditionally render password field */}
+                            {!editing && (
+                                <CFormInput
+                                    type="password"
+                                    name="password"
+                                    value={newStudent.password}
+                                    onChange={handleChange}
+                                    placeholder="Password"
+                                    required={!editing}  // Password is required only when adding new student
+                                />
+                            )}
                         </div>
                         <CButton type="submit" color="primary">
                             {editing ? 'Update' : 'Add'} Student

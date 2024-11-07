@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import {
   CButton,
   CCard,
@@ -7,14 +7,17 @@ import {
   CContainer,
   CForm,
   CFormInput,
+  CFormSelect,
   CInputGroup,
   CInputGroupText,
   CRow,
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
+import { cilLockLocked, cilUser } from '@coreui/icons';
 
 const Register = () => {
+  const [userType, setUserType] = useState('student'); // State to handle user type selection
+
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -29,11 +32,7 @@ const Register = () => {
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Username" autoComplete="username" />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
-                    <CFormInput placeholder="Email" autoComplete="email" />
+                    <CFormInput placeholder="ID" autoComplete="id" />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
@@ -55,6 +54,16 @@ const Register = () => {
                       autoComplete="new-password"
                     />
                   </CInputGroup>
+                  {/* Dropdown to select user type */}
+                  <CInputGroup className="mb-4">
+                    <CFormSelect
+                      value={userType}
+                      onChange={(e) => setUserType(e.target.value)}
+                    >
+                      <option value="student">Register as Student</option>
+                      <option value="faculty">Register as Faculty</option>
+                    </CFormSelect>
+                  </CInputGroup>
                   <div className="d-grid">
                     <CButton color="success">Create Account</CButton>
                   </div>
@@ -65,7 +74,7 @@ const Register = () => {
         </CRow>
       </CContainer>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

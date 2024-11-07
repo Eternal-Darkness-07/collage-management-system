@@ -15,7 +15,8 @@ const AdminInstructors = () => {
         email: '',
         phone: '',
         hire_date: '',
-        department_id: ''
+        department_id: '',
+        password: '' // Add password field
     });
     const [editing, setEditing] = useState(false);
     const [editingId, setEditingId] = useState(null);
@@ -46,7 +47,8 @@ const AdminInstructors = () => {
             email: '',
             phone: '',
             hire_date: '',
-            department_id: ''
+            department_id: '',
+            password: '' // Reset password field
         });
         setEditing(false);
         setEditingId(null);
@@ -78,7 +80,8 @@ const AdminInstructors = () => {
             email: instructor.email,
             phone: instructor.phone,
             hire_date: instructor.hire_date,
-            department_id: instructor.department_id
+            department_id: instructor.department_id,
+            password: '' // Do not show password on edit, keep it blank
         });
         setEditing(true);
         setEditingId(instructor.instructor_id);
@@ -165,6 +168,17 @@ const AdminInstructors = () => {
                                     </option>
                                 ))}
                             </CFormSelect>
+                            {/* Password Field */}
+                            {!editing && (
+                                <CFormInput
+                                    type="password"
+                                    name="password"
+                                    value={instructorData.password}
+                                    onChange={handleChange}
+                                    placeholder="Password"
+                                    required
+                                />
+                            )}
                         </div>
                         <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
                             <CButton type="submit" color="primary" style={{ width: '15%' }}>

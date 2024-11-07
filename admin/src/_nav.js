@@ -139,6 +139,11 @@ const _nav = [
       },
     ],
   },
+  {
+    component: CNavItem,
+    name: 'Register',
+    to: '/register',
+  },
 ]
 
 export default _nav

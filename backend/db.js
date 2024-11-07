@@ -31,6 +31,7 @@ db.connect((err) => {
         gender VARCHAR(10),
         enrollment_year INT NOT NULL,
         department_id INT NOT NULL,
+        password VARCHAR(255) NOT NULL,
         FOREIGN KEY (department_id) REFERENCES Departments(department_id) ON DELETE CASCADE
     );`;
 
@@ -55,6 +56,7 @@ db.connect((err) => {
         phone VARCHAR(15),
         hire_date DATE,
         department_id INT NOT NULL,
+        password VARCHAR(255) NOT NULL,
         FOREIGN KEY (department_id) REFERENCES Departments(department_id) ON DELETE CASCADE
     );`;
 

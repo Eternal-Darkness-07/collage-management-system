@@ -2,6 +2,54 @@ const express = require('express');
 const router=express.Router();
 const db = require('../db');
 
+router.post('/login', async (req, res) => {
+    const { studentId, password } = req.body; // Accepting studentId and password
+    console.log(studentId)
+
+    if (!studentId || !password) {
+        return res.status(400).json({ error: 'Student ID and password are required' });
+    }
+
+    try {
+        // Query to find the student by student_id
+        const query = `
+            SELECT student_id, first_name, last_name, email, password 
+            FROM Students 
+            WHERE student_id = ?;
+        `;
+        const result = await db.promise().query(query, [studentId]);
+
+        console.log(result[0]); // Log the result to check the output
+
+        if (result[0].length === 0) {
+            return res.status(401).json({ error: 'Invalid student ID or password' });
+        }
+
+        const student = result[0][0]; // Assuming there's only one student with this student_id
+        console.log(student)
+        // Directly compare the password entered by the user with the password stored in the database
+        if (password !== student.password) {
+            return res.status(401).json({ error: 'Invalid student ID or password' });
+        }
+
+        // If the password matches, return the student data
+        res.status(200).json({
+            success: true,
+            message: 'Login successful',
+            student: {
+                studentId: student.student_id,
+                firstName: student.first_name,
+                lastName: student.last_name,
+                email: student.email,
+            }
+        });
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
 router.get('/', async (req, res) => {
     try {
         const query = `

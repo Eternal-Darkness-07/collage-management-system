@@ -95,13 +95,6 @@ const AdminExams = () => {
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
                             <CFormInput
                                 type="text"
-                                placeholder="Exam ID"
-                                value={examId}
-                                onChange={(e) => setExamId(e.target.value)}
-                                required
-                            />
-                            <CFormInput
-                                type="text"
                                 placeholder="Exam Name"
                                 value={examName}
                                 onChange={(e) => setExamName(e.target.value)}

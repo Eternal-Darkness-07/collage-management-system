@@ -2,6 +2,49 @@ const express = require('express');
 const router=express.Router();
 const db = require('../db');
 
+router.post('/login', async (req, res) => {
+    const { username, password } = req.body; // Accepting instructorId as username and password
+
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Instructor ID and password are required' });
+    }
+
+    try {
+        // Query to find the instructor by instructor_id
+        const query = `
+            SELECT instructor_id, first_name, last_name, email, password 
+            FROM Instructors 
+            WHERE instructor_id = ?;
+        `;
+        const result = await db.promise().query(query, [username]);
+        console.log(result[0])
+
+        if (result[0].length === 0) {
+            return res.status(401).json({ error: 'Invalid instructor ID or password' });
+        } // Assuming there's only one instructor with this instructor_id
+        instructor=result[0][0]        // Directly compare the password entered by the user with the password stored in the database
+        if (password !== instructor.password) {
+            return res.status(401).json({ error: 'Invalid instructor ID or password' });
+        }
+        // If the password matches, return the instructor data
+        res.status(200).json({
+            success: true,
+            message: 'Login successful',
+            instructor: {
+                instructorId: instructor.instructor_id,
+                firstName: instructor.first_name,
+                lastName: instructor.last_name,
+                email: instructor.email,
+            }
+        });
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+
 router.get('/', async (req, res) => {
     try {
         const query = `

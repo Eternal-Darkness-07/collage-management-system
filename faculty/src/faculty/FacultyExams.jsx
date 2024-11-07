@@ -83,14 +83,6 @@ const FacultyExams = () => {
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '15px' }}>
                             <CFormInput
                                 type='text'
-                                name='examId'
-                                value={examId}
-                                onChange={(e) => setExamId(e.target.value)}
-                                placeholder='Exam ID'
-                                required
-                            />
-                            <CFormInput
-                                type='text'
                                 name='examName'
                                 value={examName}
                                 onChange={(e) => setExamName(e.target.value)}
