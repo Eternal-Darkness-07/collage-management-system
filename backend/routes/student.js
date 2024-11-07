@@ -76,22 +76,47 @@ router.get('/admin', async (req, res) => {
 });
 
 router.post('/admin/add', async (req, res) => {
-    const { student_id, first_name, last_name, dob, email, phone, address, gender, enrollment_year, department_id } = req.body;
+    const { 
+        student_id, first_name, last_name, dob, email, phone, address, gender, enrollment_year, department_id, password
+    } = req.body;
+
+    // Validate required fields
+    if (!student_id || !first_name || !last_name || !dob || !email || !phone || !gender || !enrollment_year || !department_id || !password) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
     try {
+        // Query to insert the student data into the Students table
         const query = `
             INSERT INTO Students 
-            (student_id, first_name, last_name, dob, email, phone, address, gender, enrollment_year, department_id) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (student_id, first_name, last_name, dob, email, phone, address, gender, enrollment_year, department_id, password) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
+
         const [result] = await db.promise().query(query, [
-            student_id, first_name, last_name, dob, email, phone, address, gender, enrollment_year, department_id
+            student_id, first_name, last_name, dob, email, phone, address, gender, enrollment_year, department_id, password
         ]);
-        res.status(201).json({ id: result.insertId, student_id, first_name, last_name, dob, email, phone, address, gender, enrollment_year, department_id });
+
+        // Return the newly created student data, including the generated student ID
+        res.status(201).json({
+            id: result.insertId,
+            student_id, 
+            first_name, 
+            last_name, 
+            dob, 
+            email, 
+            phone, 
+            address, 
+            gender, 
+            enrollment_year, 
+            department_id 
+        });
     } catch (error) {
         console.error("Error adding student:", error);
         res.status(500).json({ error: 'Server error' });
     }
 });
+
 
 
 router.put('/admin/:id', async (req, res) => {
