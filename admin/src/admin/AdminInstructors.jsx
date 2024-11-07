@@ -38,6 +38,20 @@ const AdminInstructors = () => {
         fetchData();
     }, []);
 
+    const resetInstructorForm = () => {
+        setInstructorData({
+            instructor_id: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+            phone: '',
+            hire_date: '',
+            department_id: ''
+        });
+        setEditing(false);
+        setEditingId(null);
+    }
+
     const onSubmitInstructor = async (e) => {
         e.preventDefault();
         if (!instructorData.instructor_id || !instructorData.first_name || !instructorData.last_name || !instructorData.email || !instructorData.department_id) return;
