@@ -6,7 +6,7 @@ const path = require('path');
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const PORT = 5000;
-const URL = ['http://localhost:5173','http://localhost:3000'];
+const URL = ['http://localhost:5173','http://localhost:3000','http://localhost:3001','http://localhost:3002'];
 app.use(cors({
     origin: URL,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],

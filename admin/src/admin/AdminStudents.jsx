@@ -43,6 +43,23 @@ const AdminStudents = () => {
         fetchStudents();
     }, []);
 
+    const resetNewStudentForm = () => {
+        setNewStudent({
+            student_id: '',
+            first_name: '',
+            last_name: '',
+            dob: '',
+            email: '',
+            phone: '',
+            address: '',
+            gender: '',
+            enrollment_year: '',
+            department_id: '',
+        });
+        setEditing(false);
+        setEditingId(null);
+    };
+
     const onSubmitStudent = async (e) => {
         e.preventDefault();
 
