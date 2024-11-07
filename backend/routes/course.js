@@ -5,7 +5,8 @@ const db = require('../db');
 router.get('/', async (req, res) => {
     try {
         const query = `
-            SELECT c.course_id, c.course_code, c.course_name, c.credits, d.department_name, CONCAT(i.first_name, ' ', i.last_name) AS instructor_name
+            SELECT c.course_id, c.course_code, c.course_name, c.credits, d.department_name, CONCAT(i.first_name, ' ', i.last_name) AS instructor_name,
+            i.instructor_id
             FROM Courses c
             JOIN Departments d ON c.department_id = d.department_id
             LEFT JOIN Instructors i ON c.instructor_id = i.instructor_id;`;

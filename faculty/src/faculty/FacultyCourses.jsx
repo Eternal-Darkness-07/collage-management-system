@@ -17,6 +17,7 @@ const FacultyCourses = () => {
   const baseURL = 'http://localhost:5000'
 
   const getFacultyId = () => {
+    console.log(localStorage.getItem('instructorId'))
     return localStorage.getItem('instructorId')
   }
 
@@ -49,7 +50,7 @@ const FacultyCourses = () => {
 
   // Filter courses based on facultyId
   const filteredCourses = courses.filter((course) => course.instructor_id === facultyId)
-
+  console.log(courses)
   return (
     <div className="admin-container">
       <h1>Courses</h1>
@@ -69,7 +70,7 @@ const FacultyCourses = () => {
             return (
               <CTableRow key={course.course_id}>
                 <CTableDataCell>{course.course_name}</CTableDataCell>
-                <CTableDataCell>{departmentName || 'N/A'}</CTableDataCell>
+                <CTableDataCell>{course.department_name || 'N/A'}</CTableDataCell>
                 <CTableDataCell>{course.course_code}</CTableDataCell>
                 <CTableDataCell>{course.credits}</CTableDataCell>
               </CTableRow>
