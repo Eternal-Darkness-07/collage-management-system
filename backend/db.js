@@ -114,6 +114,21 @@ db.connect((err) => {
         FOREIGN KEY (student_id) REFERENCES Students(student_id) ON DELETE CASCADE
     );`;
 
+    const noticesTable = `
+    CREATE TABLE IF NOT EXISTS Notices (
+        notice_id INT PRIMARY KEY AUTO_INCREMENT,
+        heading VARCHAR(255) NOT NULL,
+        content TEXT NOT NULL,
+        image_url VARCHAR(255),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );`;
+
+    db.query(noticesTable, (err, result) => {
+        if (err) throw err;
+        console.log("Notices table created or already exists.");
+    });
+
+
     db.query(departmentsTable, (err, result) => {
         if (err) throw err;
         console.log("Departments table created or already exists.");

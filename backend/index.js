@@ -21,7 +21,8 @@ const marksRoutes = require('./routes/marks');
 const examsRoutes = require('./routes/exams');
 const performanceRoutes = require('./routes/performance');
 const loginRoutes = require('./routes/login');
-
+const noticeRouter = require('./routes/notice');  // Adjust path as needed
+app.use('/api/notices', noticeRouter);
 app.use('/api/departments/', departmentsRoutes);
 app.use('/api/instructors/', instructorsRoutes);
 app.use('/api/courses/', coursesRoutes);
