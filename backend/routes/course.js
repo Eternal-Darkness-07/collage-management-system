@@ -17,6 +17,36 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/faculty', async (req, res) => {
+    const facultyId = req.query.faculty_id; // Get the faculty ID from query parameters
+
+    try {
+        let query = `
+            SELECT c.course_id, c.course_code, c.course_name, c.credits, d.department_name, 
+            CONCAT(i.first_name, ' ', i.last_name) AS instructor_name
+            FROM Courses c
+            JOIN Departments d ON c.department_id = d.department_id
+            LEFT JOIN Instructors i ON c.instructor_id = i.instructor_id
+        `;
+
+        // Filter by faculty ID if provided
+        if (facultyId) {
+            query += ` WHERE i.instructor_id = ?`;
+        }
+
+        // Execute the query
+        const courses = facultyId 
+            ? await db.promise().query(query, [facultyId]) 
+            : await db.promise().query(query);
+
+        res.status(200).json(courses[0]);
+    } catch (error) {
+        console.error("Error fetching courses:", error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
 router.get('/admin', async (req, res) => {
     try {
         const query = `
