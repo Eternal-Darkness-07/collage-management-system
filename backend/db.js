@@ -122,6 +122,17 @@ db.connect((err) => {
         image_url VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );`;
+    const imagesTable = `
+    CREATE TABLE IF NOT EXISTS Images (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        content VARCHAR(255) NOT NULL,
+        image_path VARCHAR(255) NOT NULL
+    );`;
+
+    db.query(imagesTable, (err, result) => {
+        if (err) throw err;
+        console.log("Images table created or already exists.");
+    });
 
     db.query(noticesTable, (err, result) => {
         if (err) throw err;

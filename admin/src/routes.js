@@ -12,7 +12,7 @@ const AdminHods = React.lazy(() => import('./admin/AdminHods'))
 const AdminInstructors = React.lazy(() => import('./admin/AdminInstructors'))
 const AdminMarks = React.lazy(() => import('./admin/AdminMarks'))
 const AdminStudents = React.lazy(() => import('./admin/AdminStudents'))
-const Notice = React.lazy(()=>import('./admin/Notice'));
+const Notice = React.lazy(()=>import('./admin/AdminImageSlider'));
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))

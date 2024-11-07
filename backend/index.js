@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./db');
 const app = express();
+const path = require('path');
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const PORT = 5000;
 const URL = ['http://localhost:5173','http://localhost:3000'];
 app.use(cors({
@@ -22,6 +25,8 @@ const examsRoutes = require('./routes/exams');
 const performanceRoutes = require('./routes/performance');
 const loginRoutes = require('./routes/login');
 const noticeRouter = require('./routes/notice');  // Adjust path as needed
+const imageslideRouter = require('./routes/imageslide');  // Adjust path as needed
+app.use('/api/imageslider', imageslideRouter);
 app.use('/api/notices', noticeRouter);
 app.use('/api/departments/', departmentsRoutes);
 app.use('/api/instructors/', instructorsRoutes);
