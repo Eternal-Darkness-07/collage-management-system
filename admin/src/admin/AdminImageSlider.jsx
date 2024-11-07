@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './adminDesign.css';
+import { CButton, CForm, CFormInput, CCard, CCardBody, CCardHeader, CTable, CTableBody, CTableHead, CTableRow, CTableDataCell, CTableHeaderCell, CFormLabel } from '@coreui/react';
 
 const AdminImageSlider = () => {
     const [images, setImages] = useState([]);
@@ -70,47 +70,72 @@ const AdminImageSlider = () => {
     return (
         <div className="admin-container">
             <h1>Image Slider Management</h1>
-            <form className="admin-form" onSubmit={onSubmitImage}>
-                <input
-                    type="text"
-                    name="content"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder="Image Content"
-                    required
-                />
-                <input
-                    type="file"
-                    name="image"
-                    onChange={(e) => setImageFile(e.target.files[0])}
-                    accept="image/*"
-                />
-                <button type="submit">{editing ? 'Update' : 'Add'} Image</button>
-            </form>
+            <CCard>
+                <CCardHeader>{editing ? 'Edit Image' : 'Add New Image'}</CCardHeader>
+                <CCardBody>
+                    <CForm onSubmit={onSubmitImage}>
+                        <div style={{ display: 'grid', gap: '15px' }}>
+                            <CFormLabel htmlFor="content">Image Content</CFormLabel>
+                            <CFormInput
+                                type="text"
+                                id="content"
+                                name="content"
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
+                                placeholder="Enter content for the image"
+                                required
+                            />
+                            <CFormLabel htmlFor="image">Upload Image</CFormLabel>
+                            <CFormInput
+                                type="file"
+                                id="image"
+                                name="image"
+                                onChange={(e) => setImageFile(e.target.files[0])}
+                                accept="image/*"
+                            />
+                        </div>
+                        <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                            <CButton type="submit" color="primary">
+                                {editing ? 'Update' : 'Add'} Image
+                            </CButton>
+                        </div>
+                    </CForm>
+                </CCardBody>
+            </CCard>
 
-            <table className="admin-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Content</th>
-                        <th>Image</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <CTable hover responsive className="mt-4">
+                <CTableHead>
+                    <CTableRow>
+                        <CTableHeaderCell>ID</CTableHeaderCell>
+                        <CTableHeaderCell>Content</CTableHeaderCell>
+                        <CTableHeaderCell>Image</CTableHeaderCell>
+                        <CTableHeaderCell>Actions</CTableHeaderCell>
+                    </CTableRow>
+                </CTableHead>
+                <CTableBody>
                     {images.map((image) => (
-                        <tr key={image.id}>
-                            <td>{image.id}</td>
-                            <td>{image.content}</td>
-                            <td><img src={`${baseURL}/${image.image_path}`} alt={image.content} width="100" /></td>
-                            <td>
-                                <button onClick={() => handleEdit(image)} className="edit-btn">Edit</button>
-                                <button onClick={() => handleDelete(image.id)} className="delete-btn">Delete</button>
-                            </td>
-                        </tr>
+                        <CTableRow key={image.id}>
+                            <CTableDataCell>{image.id}</CTableDataCell>
+                            <CTableDataCell>{image.content}</CTableDataCell>
+                            <CTableDataCell>
+                                <img
+                                    src={`${baseURL}/${image.image_path}`}
+                                    alt={image.content}
+                                    style={{ width: '128px', height: '128px', objectFit: 'cover' }}
+                                />
+                            </CTableDataCell>
+                            <CTableDataCell>
+                                <CButton color="info" onClick={() => handleEdit(image)} className="edit-btn">
+                                    Edit
+                                </CButton>
+                                <CButton color="danger" onClick={() => handleDelete(image.id)} className="delete-btn">
+                                    Delete
+                                </CButton>
+                            </CTableDataCell>
+                        </CTableRow>
                     ))}
-                </tbody>
-            </table>
+                </CTableBody>
+            </CTable>
         </div>
     );
 };
