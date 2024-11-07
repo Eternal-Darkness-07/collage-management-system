@@ -41,12 +41,6 @@ const _nav = [
     // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
   },
   {
-    component: CNavItem,
-    name: 'Exam',
-    to: '/exam',
-    // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />
-  },
-  {
     component: CNavGroup,
     name: 'Feedback',
     to: '/feedback',
