@@ -202,6 +202,7 @@ const AdminStudents = () => {
                                 ))}
                             </CFormSelect>
                         </div>
+                        <br/>
                         <CButton type="submit" color="primary">
                             {editing ? 'Update' : 'Add'} Student
                         </CButton>
