@@ -117,8 +117,9 @@ const AdminMarks = () => {
                 <CTableHead>
                     <CTableRow>
                         <CTableHeaderCell>Mark ID</CTableHeaderCell>
-                        <CTableHeaderCell>Student ID</CTableHeaderCell>
-                        <CTableHeaderCell>Exam ID</CTableHeaderCell>
+                        <CTableHeaderCell>Student Name</CTableHeaderCell>
+                        <CTableHeaderCell>Exam</CTableHeaderCell>
+                        <CTableHeaderCell>Course</CTableHeaderCell>
                         <CTableHeaderCell>Obtained Marks</CTableHeaderCell>
                         <CTableHeaderCell>Actions</CTableHeaderCell>
                     </CTableRow>
@@ -126,9 +127,11 @@ const AdminMarks = () => {
                 <CTableBody>
                     {marks.map(mark => (
                         <CTableRow key={mark.mark_id}>
+                            {console.log(mark)}
                             <CTableDataCell>{mark.mark_id}</CTableDataCell>
-                            <CTableDataCell>{mark.student_id}</CTableDataCell>
-                            <CTableDataCell>{mark.exam_id}</CTableDataCell>
+                            <CTableDataCell>{mark.student_first_name} {mark.student_last_name}</CTableDataCell>
+                            <CTableDataCell>{mark.exam_name}</CTableDataCell>
+                            <CTableDataCell>{mark.course_name}</CTableDataCell>
                             <CTableDataCell>{mark.obtained_marks}</CTableDataCell>
                             <CTableDataCell>
                                 <CButton color="info" onClick={() => handleEdit(mark)} className="edit-btn">
